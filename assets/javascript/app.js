@@ -6,37 +6,27 @@ $(document).ready(function () {
     $("#startGame").append("<p> You will have 25 seconds to complete the Trivia Game. Do your Best!</p>");
     $("#startGame").append("<h1><button id='startButton'> Click me to start the Game </button></h1>");
 
-    $('#startButton').on("click", function () {
-        window.location.replace(src = "index2.html");
+    $("#parentContainer").hide();
 
-        function makeTimer() {
-
-            //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");	
-                var endTime = new Date("29 April 2020 9:56:00 GMT+01:00");			
-                    endTime = (Date.parse(endTime) / 1000);
-        
-                    var now = new Date();
-                    now = (Date.parse(now) / 1000);
-        
-                    var timeLeft = endTime - now;
-        
-                    var days = Math.floor(timeLeft / 86400); 
-                    var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
-                    var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
-                    var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
-          
-                    if (hours < "10") { hours = "0" + hours; }
-                    if (minutes < "10") { minutes = "0" + minutes; }
-                    if (seconds < "10") { seconds = "0" + seconds; }
-        
-                    $("#days").html(days + "<span>Days</span>");
-                    $("#hours").html(hours + "<span>Hours</span>");
-                    $("#minutes").html(minutes + "<span>Minutes</span>");
-                    $("#seconds").html(seconds + "<span>Seconds</span>");		
-        
+    var timer = function (){
+        var timeRemaining = 25;
+        var displayTime = setInterval(function (){
+            $("#timerNum").text(timeRemaining);
+            timeRemaining--;
+            if (timeRemaining === 0) {
+                console.log("Time Over!");
+                clearInterval(displayTime);
             }
+        }, 1000);
+
+    };
+
+    $('#startButton').on("click", function() {
+        $("#startGame").hide();
+        $("#parentContainer").show();
+            timer();
+       
         
-            setInterval(function() { makeTimer(); }, 1000);
 
     });
 
